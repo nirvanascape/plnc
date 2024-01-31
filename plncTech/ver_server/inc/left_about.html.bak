@@ -1,0 +1,8 @@
+<?
+echo '<'.'?xml version="1.0" encoding="EUC-KR"?'.'>';
+?>
+<menu>
+		<depth1 name="CEO인사말" link="/about/intro.html" target=""></depth1>
+		<depth1 name="회사연혁" link="/about/history.html" target=""></depth1>
+		<depth1 name="오시는길" link="" target="/about/map.html"></depth1>
+</menu>

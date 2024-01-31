@@ -1,0 +1,14 @@
+<?
+	include_once $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+
+	$sql = "SELECT * FROM authorised_user";
+	$row = $objdb->sqlRow( $sql );
+
+	$siteUrl = $row[domain];
+	$siteUrlMail = $row[email];
+	$siteTel = $row[phone];
+	$siteFax = $row[fax];
+	$siteAddress = $row[addr];
+	$siteName = $row[company];
+
+?>

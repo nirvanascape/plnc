@@ -1,0 +1,7 @@
+<?
+echo '<'.'?xml version="1.0" encoding="EUC-KR"?'.'>';
+?>
+<menu>
+		<depth1 name="포토갤러리" link="/bbs/bbsList.html" target=""></depth1>
+		<depth1 name="사용후기" link="/bbs/bbsList.htmll" target=""></depth1>
+</menu>

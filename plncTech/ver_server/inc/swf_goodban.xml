@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<Element>
+
+<!--
+
+ 1) 이미지 1개는 아래와 같은 속성을 가지고 있습니다.
+    속성을 변경할 때에는 변경하고자 하는 속성의 큰따옴표 (" ") 사이의 변수값을 변경합니다.
+    특정 제품 이미지에서 특정 속성이 없을 경우, 해당 속성의 큰따옴표 (" ") 사이를 비워둡니다. 
+ 2) 이미지를 삭제할 때에는 삭제하고자 하는 이미지에 해당하는 아래와 같은 한 단위의 코드 블럭을 모두 삭제합니다.
+    이미지를 추가할 때에는 아래와 같은 한 단위의 코드 블럭을 추가합니다.
+
+<이미지>
+	<이미지1>
+	         <이미지링크 value="이미지 클릭 시 링크 경로" target="현재창(_self) 또는 새창(_blank) 으로 띄우기 선택" />
+        </이미지1>
+</이미지>
+
+-->
+
+<이미지>
+        <이미지1>  
+		<이미지링크 value="/goods/goodView.html?code=1e491ae8eb&ca_code=60&m_num=0&subnum=2&mname=goods" target="_self" />
+	</이미지1>
+        <이미지2>  
+		<이미지링크 value="/goods/goodView.html?code=3d55905190&ca_code=60&m_num=0&subnum=2&mname=goods" target="_self" />
+	</이미지2>
+        <이미지3>  
+		<이미지링크 value="/goods/goodView.html?code=4d5ab4ed18&ca_code=60&m_num=0&subnum=2&mname=goods" target="_self" />
+	</이미지3>
+</이미지>      
+
+
+<!-- option0 과 option1 에 적혀있는 각각의 변수들은 다음과 같은 용도로 사용됩니다.
+
+<option0>
+<이미지경로 value="이미지를 불러오는 경로에서 폴더명까지만 입력합니다." /> (플래시 swf 파일이 삽입되는 html 파일의 위치를 기준으로 설정)
+</option0>
+
+<option1
+startX_01="버튼 시작 x 좌표"
+startY_01="버튼 시작 y 좌표"
+space_01="버튼 간격"
+interval="타이머 시간 간격" (1초 = 1000)
+selectedMenuTextColor="선택한 버튼 숫자의 색상 RGB 코드"
+menuTextColor="선택하지 않은 버튼 숫자의 색상 RGB 코드"
+/>
+
+아래 코드 블럭에서 변수값을 설정합니다. -->
+
+<option0>
+<이미지경로 value="/img/main/goods/" />
+</option0>
+
+<option1
+startX_01="250"
+startY_01="3"
+space_01="0"
+interval="4000"
+selectedMenuTextColor="0xFFFFFF"
+menuTextColor="0xB8B8B8"
+/>	
+
+</Element>

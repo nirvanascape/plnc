@@ -1,0 +1,64 @@
+<?php
+$thispage = $PHP_SELF;
+if( $thispage=="/index.html" )
+{
+?>
+<?}else{?>
+<img src="/img/common/space.gif" width="1" height="35"><br>
+<?}?>
+
+<!-- FOOT -->
+<div id="FOOT">
+
+<TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+<?
+$thispage = $PHP_SELF;
+if( $thispage=="/index.html" )
+{
+?>
+	<TD width="220" align="right"><img src="/img/main/bot_logo.gif" hspace="20"></TD>
+<?}else{?>
+	<TD  width="220" align="right"><img src="/img/main/bot_logo.gif" hspace="30"></TD>
+<?}?>
+	<TD>
+		<div class="bm">
+			<!--<TABLE border="0" cellpadding="0" cellspacing="0">
+			<TR>
+				<TD><A HREF="/member/join_yak.html"><img src="/img/main/bm01.gif"></A></TD>
+				<TD><img src="/img/main/bm_bar.gif" width="1" hspace="5"></TD>
+				<TD><A HREF="/member/join_indi.html"><img src="/img/main/bm02.gif"></A></TD>
+				<TD><img src="/img/main/bm_bar.gif" width="1" hspace="5"></TD>
+				<TD><A HREF="#" onclick="javascript:window.open('/help/pop_maildeny.html','','width=460 ,height=270, top=200, left=200, scrollbars=no')"><img src="/img/main/bm03.gif"></A></TD>
+				<TD><img src="/img/main/bm_bar.gif" width="1" hspace="5"></TD>
+				<TD><A HREF="/about/map.html?mname=about&m_num=0&subnum=3"><img src="/img/main/bm05.gif"></A></TD>
+			</TR>
+			</TABLE>-->
+		</div>
+		<!--
+		<div class="lbox">
+			<div class="info">주소: <?= $rowAd[addr]?> ㅣ 대표이사 : 정훈 ㅣ 고객센터: <?= $rowAd[phone]?><BR>
+			사업자 등록번호: <?= $rowAd[com_num]?> ㅣ 개인정보관리 책임자/이메일 : <?= $rowAd[name]?> <?= $rowAd[email]?></div>
+			<div class="copy">Copyright ⓒ 2008~2018 <?=$rowAd[domain]?>. All Rights Reserved.</div>
+		</div>
+		-->
+		<div class="lbox">
+			<div class="info">주소: 서울특별시 구로구 디지털로 272 한신IT타워 209호 ㅣ 대표이사: 정훈 ㅣ 고객센터: 02-2038-2468<BR>
+			사업자 등록번호: 206-81-86828 ㅣ 개인정보관리 책임자/이메일:  이장섭 plnc@plnc.co.kr</div>
+			<div class="copy">Copyright ⓒ 2008~2018 <?=$rowAd[domain]?>. All Rights Reserved.</div>
+		</div>
+	</TD>
+</TR>
+</TABLE>
+</div>
+
+<?
+if( $_SERVER["PHP_SELF"] == "/index.html") {
+	include $_SERVER["DOCUMENT_ROOT"]."/admin/popup/popup.inc.php";
+}
+?>
+
+<iframe name='exeFrame' width=0 height=0></iframe>
+<!-- //FOOT -->
+</BODY>
+</HTML>

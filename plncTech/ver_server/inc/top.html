@@ -1,0 +1,48 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT']."/inc/variables.html";
+$sqlAd = "SELECT * FROM authorised_user";
+$rowAd = $objdb->sqlRow( $sqlAd );
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE><?=$rowAd[company]?></TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+
+<SCRIPT src="/javascript/common.js"></SCRIPT>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=36f0385c26551ee806978a19f88a1993&libraries=services,clusterer,drawing"></script>
+<link rel="stylesheet" href="/style.css" type="text/css">
+</HEAD>
+
+<BODY>
+<!-- TOP -->
+<TABLE width="960" border="0" cellpadding="0" cellspacing="0" id="TOP">
+<colgroup><col><col></colgroup>
+<TR>
+	<TD></TD>
+	<TD align="right" style="padding-right:10px">
+		<!-- tm -->
+		<ul >
+			<li><div><SCRIPT>FlashObject( '/img/swf/tm.swf', '330', '15' );</SCRIPT></div></li>
+		</ul>
+		<!-- tm -->
+	</TD>
+</TR>
+<TR>
+	<TD class="logo"><A HREF="/"><img src="/img/main/logo.gif"></A></TD>
+	<TD class="menu">
+	  <table  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="/img/main/Top_bg_l.gif" ></td>
+          <td background="/img/main/Top_bg_c.gif" class="menu"><div class="swf"><script language="javascript">flash('/img/swf/menu.swf',720,80,'','transparent','','.')</script></div></td>
+          <td><img src="/img/main/Top_bg_r.gif" ></td>
+        </tr>
+    </table></TD>
+</TR>
+</TABLE>
+
+<!-- //TOP -->

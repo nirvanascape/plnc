@@ -1,0 +1,60 @@
+<?session_start();?>
+<xmlMenu>
+  <!-- menui  title=메뉴타이틀 link=링크경로 target=브라우저타겟설정 mCount=서브메뉴 열의 개수설정 -->
+	<menu1  title="HOME" link="/"  target="_self" mCount="0"></menu1>
+	<!--
+	<? if( $_SESSION['_USERID'] ) {?>
+	<menu1  title="LOGOUT" link="/member/logout.html"  target="_self" mCount="0"></menu1>
+	<menu2  title="MYPAGE" link="/member/myinfo.html"  target="_self" mCount="0"></menu2>
+	<? } else { ?>
+	<menu1  title="LOGIN" link="/member/login.html"  target="_self" mCount="0"></menu1>
+	<menu2  title="JOIN MEMBER" link="/member/join01.html"  target="_self" mCount="0"></menu2>
+	<? } ?>
+	-->
+	<menu3  title="SITEMAP" link="/help/sitemap.html"  target="_self" mCount="0"></menu3>
+	<menu3  title="CONTACT US" link="http://plncinc.hosting.paran.com/about/map.html?mname=about&m_num=0&subnum=3"  target="_self" mCount="0"></menu3>
+
+
+	<option
+	xMenu="170"
+	yMenu="-6"
+	mMenuSpace="12"
+	mHeight="15"
+
+	mMenuXscale="100"
+	mMenuYscale="100"
+	mBorderView = "1"
+	
+	menuOutColor="B1B1B1"
+	menuOverColor="4C4C4C"
+
+ />
+
+	<!--
+ 	option에 적혀있는 변수는 다음과 같이 쓰입니다.
+ 	위의 변수값을 수정해 주시면 플래시 파일에 바로 적용됩니다.
+ 	
+  xMenu = 메인메뉴가 시작되는 x좌표
+	yMenu = 메인메뉴가 시작되는 y좌표
+	mMenuSpace=메인메뉴간 간격
+	sMenuSpace=서브메뉴간 간격
+	mHeight=메인메뉴 버튼영역 높이 
+	sHeight=메인메뉴 버튼영역(서브바) 높이
+
+	mMenuXscale=메인메뉴 텍스트 가로비율
+	mMenuYscale=메인메뉴 텍스트 세로비율
+	sMenuXscale=상위 선택된 메뉴텍스트 가로비율
+	sMenuYscale=상위 선택된 메뉴텍스트 세로비율
+	
+	mBorderView=메인메뉴간 경계선 보임(1)/숨기기(0)
+
+  menuOutColor=대메뉴 평상시 색상
+	menuOverColor=대메뉴 선택되었을 때 색상
+  subOutColor=서브메뉴의 평상 컬러
+	subOverColor=서브메뉴 선택되었을 때 색상
+
+	subMargin=서브메뉴바의 좌우 여백
+	
+	-->
+
+</xmlMenu>

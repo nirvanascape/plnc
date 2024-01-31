@@ -1,0 +1,8 @@
+<?
+echo '<'.'?xml version="1.0" encoding="EUC-KR"?'.'>';
+?>
+<menu>
+		<depth1 name="공지사항" link="/bbs/bbsList.html" target=""></depth1>
+		<depth1 name="제품문의" link="/bbs/goodsAsk.html" target=""></depth1>
+		<depth1 name="기술지원" link="/bbs/bbsList.html" target=""></depth1>
+</menu>

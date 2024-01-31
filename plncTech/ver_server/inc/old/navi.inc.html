@@ -1,0 +1,52 @@
+<?
+///게시판 정보 가져오기
+$query = "SELECT * FROM bbs_conf WHERE id='".$_REQUEST[id]."'";
+$RowConf = $objdb->sqlRow( $query );
+///
+
+///접근제한 제어
+if($_USERLEVEL == '') $_USERLEVEL = 0 ;
+if( $RowConf[chklevel] == y ){
+	if( empty($_USERID) ){
+	$objfunc->alertBack('접근권한이 없습니다');
+	} else {
+		if ( $RowConf["level_$_USERLEVEL"] == y ) {
+			$objfunc->alertBack('접근권한이 없습니다');
+		}
+	}
+}
+///
+
+
+/// 네비게이션 및 좌측메뉴 설정  
+if(!$RowConf[bbs_cate]) {
+	$menuid = $_REQUEST["menu"];
+}else{
+	$menuid = $RowConf[bbs_cate];
+}
+
+if($menuid == 3 ){
+	$bbs_cate = "고객지원";
+	$mname = 'help';
+		if(!$_REQUEST[id] || $_REQUEST[id] == "notice"){
+			$subnum = '1';
+		}elseif($_REQUEST[id] == "good_qna"){
+			$subnum = '2';
+		}else{
+			$subnum = '3';
+		}
+}elseif($_REQUEST[id] == "gonggo"){
+	$bbs_cate = "채용정보";
+	$mname = 'recruit';
+	$subnum = '2';
+}elseif($menuid == 5){
+	$bbs_cate = "커뮤니티";
+
+	$mname = 'community';
+		if(!$_REQUEST[id] || $_REQUEST[id] == "img"){
+			$subnum = '1';
+		}else{
+			$subnum = '2';
+		}
+}
+?>

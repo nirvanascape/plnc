@@ -1,0 +1,119 @@
+<?
+include $_SERVER['DOCUMENT_ROOT']."/common/subnum.inc.php";
+include $_SERVER['DOCUMENT_ROOT'].'/inc/menuConfig.inc.php';
+
+?>
+<div id="SUBtop">
+<div class="img"></div>
+</div>
+
+<TABLE border="0" cellpadding="0" cellspacing="0" id="SubLayout">
+<TR>
+	<TD class="left"><??>
+		<div><img src="/img/common/tit/lm_<?=$mname?>.gif"></div>
+<?
+if($m_num < 10)		$middle_num = "0".$m_num;
+else				$middle_num  = $m_num;
+
+if($subnum < 10)	$small_num = "0".$subnum;
+else				$small_num = $subnum;
+
+if($middle_num=='00')	$PageNum = $small_num;
+else				$PageNum = $middle_num.$small_num;
+
+//echo $PageNum;
+?>	
+		<!-- 서브메뉴flash -->
+
+<table width="220" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="220" background="/img/main/left_bg.gif" style="background-repeat:repeat-x"><? if( $mname == 'member' && !empty($_USERID) ){ ?>
+			<script language="javascript">flash('/img/swf/left.swf?xmlURL=/inc/left_<?=$mname?>_on.html&PageNum=0<?=$mem_subnum[$subnum]?>',200,180,'','transparent','','.')</script>
+				<? } else { ?>
+			<script language="javascript">flash('/img/swf/left.swf?xmlURL=/inc/left_<?=$mname?>.html&PageNum=<?=$PageNum?>',200,180,'','transparent','','.')</script>
+				<? } ?></td>
+		</tr>
+</table>
+
+		<!-- //서브메뉴flash -->
+
+		<!-- 서브공통배너 -->
+		<div><img src="/img/main/cs_qna11.jpg" ></div>
+		<div style="padding:10px 0 0 10px"><a href="/bbs/goodsAsk.html?form_id=formform&mname=help&m_num=0&subnum=3"><img src="/img/main/cs_01.gif" border="0"></a></div>
+		<!-- //서브공통배너 -->
+
+
+	</TD>
+	<TD class="contents">
+		<!-- navigation -->
+		<TABLE border="0" cellpadding="0" cellspacing="0" id="Navi">
+		<TR>
+			<TD valign="top">
+<!-- 상단 타이틀 이미지  -->
+<?
+//	제품안내일때
+if($ca_code || $code){
+	$imgnum=1;
+}
+else{
+	$imgnum = $subnum;
+}
+
+if($RowConf[chktop]){
+	if($RowConf[topimg] && $RowConf[chktop] == "y"){
+		$info = getimagesize($_SERVER["DOCUMENT_ROOT"]."/upload_img/bbs_img/".$RowConf[topimg]);
+		if($info[0] > 400){
+			$width = 400;
+		}else{
+			$width = $info[0];
+		}
+?>
+					<div id='bTit'>
+						<img src="/upload_img/bbs_img/<?=$RowConf[topimg]?>" width="<?=$width?>">
+					</div>
+<?
+	}
+	else{
+?>
+				<div id="bTit2">				
+<? 
+	if($menuArr[$mname]){
+		foreach($menuArr[$mname] as $k => $v) {
+			if($v[subnum]==$subnum && $v[level] != 0){
+				echo $k;
+			}
+		}
+	}
+?>
+				</div>
+
+<?
+	}
+}
+else{
+?>
+				<div id="bTit">			
+					<img src="/img/common/tit/bt_<?=$mname.$imgnum?>.gif">
+				</div>
+<?
+}
+?>
+				<!-- 상단 타이틀 이미지  -->
+
+			</TD>
+			<TD align="right" style="padding-top:15px;">
+				<A HREF="/"><img src="/img/common/navi_home.gif"></A><img src="/img/common/navi_arr.gif" class="ar">
+				<SCRIPT LANGUAGE="JavaScript">
+				<!--// Navigator Setting
+				var arr_navi_count = arr_navi.length;
+				if (arr_navi_count>0) {
+					arr_navi[arr_navi_count-1] = arr_navi[arr_navi_count-1];
+					document.write( arr_navi.join("<img src=\"/img/common/navi_arr.gif\" class=\"ar\">") );
+				}
+				//-->
+				</SCRIPT>
+			</TD>
+		</TR>
+		</TABLE>
+		<!-- //navigation -->
+		<div class="area">

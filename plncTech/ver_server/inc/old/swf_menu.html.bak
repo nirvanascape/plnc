@@ -1,0 +1,96 @@
+<?
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+include $_SERVER['DOCUMENT_ROOT'].'/inc/menuConfig.inc.php';
+?>
+<xmlMenu>
+
+
+  <!-- menui  title=메뉴타이틀 link=링크경로 target=브라우저타겟설정 mCount=서브메뉴 열의 개수설정 -->
+  
+	<menu1  title="회사소개" link="/about/intro.html?menu=1"  target="_self" mCount="0">
+		<sub1 title="CEO인사말" link="/about/intro.html" target="_self"/>
+		<sub2 title="회사연혁" link="/about/history.html" target="_self"/>
+		<sub3 title="오시는 길" link="/about/map.html" target="_self"/>
+	</menu1>
+<?
+$sql="select ca_code, ca_title from category where ca_step='0' order by ca_top ";
+$cateArr = $objdb->sqlArray($sql);
+?>
+	<menu2  title="제품안내" link="/goods/goodList.html?ca_code=<?=$cateArr[0][ca_code]?>&subnum=1"  target="_self" mCount="0">
+<?
+if($cateArr){
+	foreach($cateArr as $k => $v){
+?>
+		<sub1 title="<?=$v[ca_title]?>" link="/goods/goodList.html?ca_code=<?=$v[ca_code]?>&subnum=<?=$k+1?>" target="_self"/>
+<?
+	}
+}
+?>
+	</menu2>
+	<menu3  title="고객지원" link="/bbs/bbsList.html?id=notice"  target="_self" mCount="0">
+		<sub1 title="공지사항" link="/bbs/bbsList.html?id=notice" target="_self"/>
+		<sub2 title="제품 문의" link="/help/goodsAsk.html" target="_self"/>
+		<sub2 title="기술 지원" link="/bbs/bbsList.html?id=faq" target="_self"/>
+	</menu3>
+	<menu4  title="채용정보" link="/recruit/info.html"  target="_self" mCount="0">
+		<sub1 title="인재상" link="/recruit/info.html" target="_self"/>
+		<sub2 title="채용공고" link="/bbs/bbsList.html?id=gonggo" target="_self"/>
+	</menu4>
+	<menu5  title="커뮤니티" link="/bbs/bbsList.html?id=img"  target="_self" mCount="0">
+		<sub1 title="포토 갤러리" link="/bbs/bbsList.html?id=img" target="_self"/>
+		<sub2 title="사용 후기" link="/bbs/bbsList.html?id=after" target="_self"/>
+	</menu5>
+
+
+	<option
+	xMenu="25"
+	yMenu="0"
+	mMenuSpace="43"
+	sMenuSpace="10"
+	mHeight="36"
+	sHeight="29"
+
+	mMenuXscale="100"
+	mMenuYscale="100"
+	sMenuXscale="100"
+	sMenuYscale="100"
+	
+	mBorderView = "1"
+	
+	menuOutColor="FFFFFF"
+	menuOverColor="93E8FF"
+	subOutColor="25458D"
+	subOverColor="5FAAD3"
+
+	subMargin = "50"
+
+ />
+
+	<!--
+ 	option에 적혀있는 변수는 다음과 같이 쓰입니다.
+ 	위의 변수값을 수정해 주시면 플래시 파일에 바로 적용됩니다.
+ 	
+  xMenu = 메인메뉴가 시작되는 x좌표
+	yMenu = 메인메뉴가 시작되는 y좌표
+	mMenuSpace=메인메뉴간 간격
+	sMenuSpace=서브메뉴간 간격
+	mHeight=메인메뉴 버튼영역 높이 
+	sHeight=메인메뉴 버튼영역(서브바) 높이
+
+	mMenuXscale=메인메뉴 텍스트 가로비율
+	mMenuYscale=메인메뉴 텍스트 세로비율
+	sMenuXscale=상위 선택된 메뉴텍스트 가로비율
+	sMenuYscale=상위 선택된 메뉴텍스트 세로비율
+	
+	mBorderView=메인메뉴간 경계선 보임(1)/숨기기(0)
+
+  menuOutColor=대메뉴 평상시 색상
+	menuOverColor=대메뉴 선택되었을 때 색상
+  subOutColor=서브메뉴의 평상 컬러
+	subOverColor=서브메뉴 선택되었을 때 색상
+
+	subMargin=서브메뉴바의 좌우 여백
+	
+	-->
+
+</xmlMenu>
