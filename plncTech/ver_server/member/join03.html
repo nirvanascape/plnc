@@ -1,0 +1,68 @@
+<?php
+$userName = $_REQUEST['username'];
+$userEmail = $_REQUEST['useremail'];
+$userId = $_REQUEST['userid'];
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+if( empty($userId) ) LoginRedirect();
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '1';
+
+?>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"회원가입"
+								);
+</SCRIPT>
+
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html";
+
+	$sql_admin = "SELECT email, company FROM authorised_user";
+	$admin_row = $objdb -> sqlRow($sql_admin);
+	$company = $admin_row[company];
+	$mail_title = "회원가입을 축하드립니다.";
+	$from_email = $admin_row[email];
+
+	$header =    "Return-Path: ".$from_email."\n";
+	$header .=    "From:  \"".$from_email."\"<".$from_email.">\n";
+	$header .=    "X-Mailer: DEARBIZ\n";
+	$header .=    "Reply-To: ".$from_email."\n";
+	$header .=    "Content-Type: text/html; charset=euc-kr\n";
+	$to_email = $userEmail;
+	include $_SERVER['DOCUMENT_ROOT'].'/mail/join.html';
+	mail($to_email, $mail_title, $contents, $header);
+?>
+
+<!-- CONTENTS -->
+<? include $_SERVER["DOCUMENT_ROOT"]."/member/join_step.inc.html"; ?>
+
+<div id="JFWelcome">
+	<img src="/img/member/log_tx_name.gif"><img src="/img/member/join_finish_tx.gif"><BR>
+	<img src="/img/member/join_finish_tx_sm.gif" style="margin-top:5px">
+</div>
+
+<TABLE border=0 cellpadding=0 cellspacing=0 id="JFtbl">
+<TR>
+	<TD class="left"></TD>
+	<TD class="right">
+
+		<div>
+		<font class="fc01 b"><?= $userName ?></font> 님 회원가입을 축하합니다.<BR>
+		회원정보는 로그인 후 [<B>회원정보 수정</B>] 페이지에서 수정하실 수 있습니다.
+		</div>
+		
+		<!-- btn -->
+		<div class="btn"><A HREF="/"><img src="/img/common/btn_home.gif" hspace="2"></A><A HREF="/member/login.html?find_id=<?= $userId?>"><img src="/img/common/btn_login.gif" hspace="2"></A></div>
+		<!-- //btn -->
+	</TD>
+</TR>
+</TABLE>
+
+
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

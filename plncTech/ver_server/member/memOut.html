@@ -1,0 +1,87 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	if( empty($_USERID) ) LoginRedirect('member');
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '7';
+
+?>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"회원탈퇴"
+								);
+
+function doSubmit(form) {
+	if(document.form.pass.value == "" || document.form.pass.value == null){
+		alert('비밀번호를 입력하세요.');
+		document.form.pass.focus();
+		return false;
+	}
+	if( !confirm( "회원님의 모든 정보는 삭제됩니다.\n정말 탈퇴하시겠습니까?" ) ) {
+		return false;
+	}
+}
+</SCRIPT>
+
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html"; 
+
+	if ( $_REQUEST[mode] == 'reload' ){
+		$se_pass = substr(md5($_REQUEST[pass]), 0, 20);
+		$sql="SELECT pass FROM member WHERE id = '".$_USERID."'";
+		$bon_pass = $objdb->sqlRowOne($sql);
+			if( $bon_pass != $se_pass){
+				$mode='';
+				$objfunc->reloadParent('비밀번호가 틀립니다.');
+			} else {
+				$sql="DELETE FROM member WHERE id = '".$_USERID."'";
+				$objdb->sqlExe($sql);
+				session_destroy();
+				$objfunc->alert('탈퇴완료 되었습니다. 감사합니다.',false);
+				$objfunc->replaceParent('/');
+			}
+	}
+?>
+
+<!-- CONTENTS -->
+<div id="sTit"><img src="/img/common/tit/st_join_out.gif"></div>
+
+
+<TABLE border=0 cellpadding=0 cellspacing=0 id="OUTtbl">
+<form method='post' name='form' action='<? $_SERVER["PHP_SELF"]?>' target='exeFrame' onSubmit='return doSubmit(this);'>
+<input type='hidden' name='mode' value='reload'>
+
+<TR>
+	<TD class="img"><img src="/img/member/out_img.gif" hspace="13"></TD>
+	<TD class="right">
+		<div class="tx"><img src="/img/member/out_tx.gif"></div>
+
+		<div class="pwcheck">
+		<!-- login -->
+		<TABLE border=0 cellpadding=0 cellspacing=4>
+		<TR>
+			<TD><img src="/img/member/log_pw.gif" hspace="8"></TD>
+			<TD><INPUT TYPE="password" NAME="pass" class="box" tabindex="1"></TD>
+		</TR>
+		</TABLE>
+		<!-- //login -->
+		</div>
+		<div class="exptx">
+			- 회원 탈퇴를 하시면 회원정보는 모두 삭제되며,	기존 자료에 대한 접근 권한은 거부됩니다.<BR>
+			- 회원 탈퇴 후 언제라도 <?=$company?> 회원으로 다시 가입하실 수 있습니다.
+		</div>
+	</TD>
+</TR>
+</TABLE>
+
+
+<!-- btn -->
+<div id="btnPad"><input type="image" src="/img/common/btn_memout.gif" hspace="2"><A HREF="javascript:history.back();"><img src="/img/common/btn_cancel.gif" hspace="2"></A></div>
+</form>
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

@@ -1,0 +1,73 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	if( $_USERID ) $objfunc->goUrl( "/" );
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '1';
+
+?>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"회원가입"
+								);
+
+</SCRIPT>
+
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html"; ?>
+<!-- CONTENTS -->
+<? include $_SERVER["DOCUMENT_ROOT"]."/member/join_step.inc.html";
+	$sql_yak = "SELECT * FROM member_join";
+	$row_yak = $objdb->sqlRow( $sql_yak );
+?>
+
+<script>
+function nextUrl(){
+	if(!document.getElementById('agree1').checked){
+		alert('이용약관 및 개인정보 취급방침에 동의해주시기 바랍니다.');
+		document.getElementById('agree1').focus();
+		return;
+	}
+	location.href = '/member/join02.html';
+}
+</script>
+
+
+<!-- 약관 -->
+<div id="sTit"><img src="/img/common/tit/st_join_yak.gif"></div>
+
+<div id="joinBox">
+<pre><?= $row_yak[yak1]?></pre>
+</div>
+<!-- //약관 -->
+
+
+<!-- 개인정보 -->
+<div id="sTit"><img src="/img/common/tit/st_join_indi.gif"></div>
+
+<div id="joinBox">
+<pre><?= $row_yak[yak2]?></pre>
+</div>
+<!-- //개인정보 -->
+
+
+<!-- 동의 -->
+<div class="botline">
+	<ul id="joinAgree">
+		<li><img src="/img/member/join_agree_tx.gif" vspace="4" style="margin-right:25px"></li>
+		<li><INPUT TYPE="radio" NAME="agree" value='y' id='agree1' onfocus='this.blur()'></li>
+		<li><img src="/img/member/join_agree_ok.gif" vspace="4" style="margin-right:15px"></li>
+		<li><INPUT TYPE="radio" NAME="agree" value='n' checked id='agree2' onfocus='this.blur()'></li>
+		<li><img src="/img/member/join_agree_no.gif" vspace="4"></li>
+	</ul>
+</div>
+<!-- //동의 -->
+
+<!-- btn -->
+<div id="btnPad"><img src="/img/common/btn_ok.gif" hspace="2" style='cursor:hand' onclick='nextUrl();'><A HREF="javascript:history.back();"><img src="/img/common/btn_cancel.gif" hspace="2"></A></div>
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

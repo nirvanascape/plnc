@@ -1,0 +1,101 @@
+<?
+include $_SERVER['DOCUMENT_ROOT']."/inc/variables.html";
+$today = date('Y. n. j');
+
+$contents = <<<DGOH
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> 회원가입확인 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY style="margin-top:60px;text-align:center;">
+<TABLE border="0" cellpadding="0" cellspacing="0" style="width:600px;" align="center">
+<TR>
+	<TD align="right" style="font-family:verdana;font-size:11px;letter-spacing:-1;color:#A4A4A4;padding-bottom:3px;"><A HREF="$siteUrl" target="_blank"><img src="$siteUrl/img/main/logo_mail.gif" border="0" style="margin-right:10px"></A>[ $today ]</TD>
+</TR>
+<TR><TD height="3" bgcolor="#24438A"></TD></TR>
+</TABLE>
+
+<TABLE border="0" cellpadding="0" cellspacing="0" style="width:600px;border-left:1px solid #E9E9E9;border-right:1px solid #E9E9E9;border-bottom:1px solid #E9E9E9;" align="center">
+<TR><TD style="height:37px;padding-left:28px;vertical-align:bottom"><img src="$siteUrlMail/tit_join.gif"></TD></TR>
+<TR>
+	<TD>
+	
+		<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+		<TR>
+			<TD><img src="$siteUrl/img/common/poptbl_tl.gif" width="15" height="13"></TD>
+			<TD style="width:99%;background:url('$siteUrl/img/common/poptbl_top.gif') top repeat-x;"></TD>
+			<TD><img src="$siteUrl/img/common/poptbl_tr.gif" width="15" height="13"></TD>
+		</TR>
+		<TR>
+			<TD style="background:url('$siteUrl/img/common/poptbl_left.gif') left repeat-y;"></TD>
+			<TD style="padding:18px;vertical-align:top;text-align:center;">
+
+			<!-- 안내테블 -->
+			<TABLE border="0" cellpadding="0" cellspacing="0" width="95%" style="background:url('$siteUrlMail/join_img.gif') left no-repeat;height:237px;">
+			<TR>
+				<TD align="right">
+					<TABLE border="0" cellpadding="0" cellspacing="0" width="350">
+					<TR>
+						<TD><img src="$siteUrlMail/join_tx.gif" hspace="20" vspace="10"></TD>
+					</TR>
+					<TR>
+						<TD style="border:1px dotted #C4C4C4;padding:5px;">
+							<TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #DEDEDE;background-color:#FAFAFA;">
+							<TR>
+								<TD style="font-family:gulim;font-size:12px;color:#696969;letter-spacing:-1;padding:15px;line-height:18px;">
+								<font color="#000"><B> $userName </B> 회원님 환영합니다 !!</font><BR>
+								[ $company ] 회원 가입을 진심으로 감사드립니다.<BR>
+								항상 더 나은 서비스를 제공하도록 노력하겠습니다.<BR>
+								감사합니다.
+								</TD>
+							</TR>
+							</TABLE>
+						</TD>
+					</TR>
+					</TABLE>
+				</TD>
+			</TR>
+			</TABLE>
+			<!-- //안내테블 -->
+			
+			</TD>
+			<TD style="background:url('$siteUrl/img/common/poptbl_right.gif') left repeat-y;"></TD>
+		</TR>
+		<TR>
+			<TD><img src="$siteUrl/img/common/poptbl_bl.gif" width="15" height="13"></TD>
+			<TD style="background:url('$siteUrl/img/common/poptbl_bot.gif') top repeat-x;"></TD>
+			<TD><img src="$siteUrl/img/common/poptbl_br.gif" width="15" height="13"></TD>
+		</TR>
+		</TABLE>
+
+	</TD>
+</TR>
+<TR>
+	<TD align="center" style="padding:18px;">
+		<!-- copy -->
+		<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+		<TR>
+			<TD style="font-family:dotum;font-size:11px;color:#B1B1B1;letter-spacing:-1;">
+				<img src="$siteUrlMail/bot_ico.gif" align="absmiddle" hspace="6">주소 : $siteAddress
+				<img src="$siteUrlMail/bot_ico.gif" align="absmiddle" hspace="6">TEL : <font style="letter-spacing:0">$siteTel</font>
+				<img src="$siteUrlMail/bot_ico.gif" align="absmiddle" hspace="6">FAX : <font style="letter-spacing:0">$siteFax</font>
+			</TD>
+		</TR>
+		<TR>
+			<TD style="font-family:dotum;padding-left:14px;font-size:11px;color:#B1B1B1;">Copyright(c) 2005~ 좋은쇼핑몰 All Rights Reserved.</TD>
+		</TR>
+		</TABLE>
+		<!-- //copy -->
+	</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>
+DGOH;
+?>

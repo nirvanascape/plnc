@@ -1,0 +1,20 @@
+<?
+	$poptitle = '아이디 확인';
+	$poptit = 'idsearch';
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';	
+	$id = $_REQUEST[id];
+	if( empty($id) ) LoginRedirect();
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/poptop.html";
+
+$sql_name = "SELECT name FROM member WHERE id = '".$id."'";
+$chk_name = $objdb -> sqlRowOne($sql_name);
+
+?>
+<!-- 사용시 -->
+<div class="icotx">
+<B><?= $chk_name ?></B> 회원님 아이디는 <font class="b fc01"><?= $id ?></font>입니다.<BR>
+</div>
+<!-- //사용시 -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/popbottom.html";
+?>

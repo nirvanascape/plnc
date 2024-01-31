@@ -1,0 +1,10 @@
+<?
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+if( empty($_USERID) ) LoginRedirect('member');
+include ($_SERVER["DOCUMENT_ROOT"]."/inc/top.html");
+unset( $_SESSION["_USERID"] );
+unset( $_SESSION["_USERNAME"] );
+unset( $_SESSION["_USERLEVEL"] );
+unset( $_SESSION["_USEREMAIL"] );
+$objfunc->goUrl('/');
+?>

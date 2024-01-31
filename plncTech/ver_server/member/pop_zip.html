@@ -1,0 +1,113 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+$PageNo = $_REQUEST['page_no'];
+
+	$poptitle = '우편번호 검색';
+	$poptit = 'zip';
+
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/poptop.html";
+?>
+<script language="javascript">
+
+function inputZipCode( val ) {
+
+	var arr = val.split("|");
+	zip1		=	arr[0];
+	zip2		=	arr[1];
+	addr1		=	arr[2];
+
+	if( self.opener == null ) {
+		alert( "opener is null" );
+	}
+	opener.document.<?= $formName ?>.<?= $zip1 ?>.value		=	zip1;
+	opener.document.<?= $formName ?>.<?= $zip2 ?>.value		=	zip2;
+	opener.document.<?= $formName ?>.<?= $addr1 ?>.value		=	addr1;
+	opener.document.<?= $formName ?>.<?= $addr2 ?>.focus();
+
+	self.close();
+}
+
+</script>
+
+<form name="zipSrchForm" action="<?= $_SERVER["PHP_SELF"] ?>">
+	<INPUT TYPE="hidden" name="openerpath" value="<?= $openerpath ?>">
+	<INPUT TYPE="hidden" name="formName" value="<?= $_REQUEST[formName]?>">
+	<INPUT TYPE="hidden" name="zip1" value="<?= $zip1 ?>">
+	<INPUT TYPE="hidden" name="zip2" value="<?= $zip2 ?>">
+	<INPUT TYPE="hidden" name="addr1" value="<?= $addr1 ?>">
+	<INPUT TYPE="hidden" name="addr2" value="<?= $addr2 ?>">
+<div class="icotx">
+검색을 원하는 주소의 <B>동(읍/면/리)</B>을 입력하세요.
+</div>
+<div class="dotbox">
+<INPUT TYPE="text" NAME="keyword" class="formbox" style="width:80%" value='<?= $_GET[keyword]?>'><input type="image" src="/img/common/bbsbtn_search.gif" align="absmiddle" hspace="3">
+</div>
+</form>
+<?
+if( !empty( $keyword ) ) {
+	$PageSize	 = 10;
+	if( empty( $PageNo ) ) $PageNo = 1;
+	$PageStart = ($PageNo-1)*$PageSize;
+
+	$sql = "SELECT COUNT( * ) FROM zip WHERE dong LIKE '%".$keyword."%'";
+	$totalCnt = $objdb->sqlRowOne( $sql );
+
+	if( $totalCnt ) {
+?>
+
+
+<!-- 결과 -->
+<div id="popupstx">
+<TABLE border="0" cellpadding="0" cellspacing="0" id="tblL" class="tbl">
+<caption>* 원하는 주소를 클릭해 주세요.</caption>
+<col width="20%" /><col width="80%" />
+<TR>
+	<TH>우편번호</TH>
+	<TH>주소</TH>
+</TR>
+<?
+	$sql = "SELECT zipcode, city, gu, dong, bunzi ".
+			"FROM zip ".
+			"WHERE dong LIKE '%".$keyword."%' ".
+			"ORDER BY etc ".
+			"LIMIT $PageStart, $PageSize";
+	$result = $objdb->sqlResult($sql);
+	while( $row = $objdb->sqlfetch($result) ) {
+		$zipcode		=	$row[zipcode];	// 우편번호
+		$city			=	$row[city];		// 도시명
+		$gu			=	$row[gu];			// 구
+		$dong			=	$row[dong];		// 동
+		$bunzi			=	$row[bunzi];		// 번지
+		$tzip1			=	substr( $zipcode, 0, 3 );
+		$tzip2			=	substr( $zipcode, -3 );
+		$taddr1		=	$city." ".$gu." ".$dong;
+		$all_address	=	$city." ".$gu." ".$dong." ".$bunzi;
+?>
+<TR>
+	<TD><A HREF="javascript:inputZipCode('<?= $tzip1 ?>|<?= $tzip2 ?>|<?= $taddr1 ?>')">[<?= $zipcode ?>]</A></TD>
+	<TD style="text-align:left"><A HREF="javascript:inputZipCode('<?= $tzip1 ?>|<?= $tzip2 ?>|<?= $taddr1 ?>')"><?= $all_address ?></A></TD>
+</TR>
+<? } ?>
+</TABLE>
+</div>
+<!-- //결과 -->
+		<div class="w100" align="center">
+			<?
+			$qrystring = "&keyword=".urlencode( $keyword ).
+							"&openerpath=$openerpath".
+							"&formName=$formName".
+							"&zip1=$zip1".
+							"&zip2=$zip2".
+							"&addr1=$addr1".
+							"&addr2=$addr2";
+			$objfunc->adminpaging( $PageNo, $PageSize, $totalCnt, "", $qrystring,'','' );
+			?>
+		</div>
+<?	} else { ?>
+	<div class="red pad10" align="center"><B>!</B> 검색하신 주소가 존재하지 않습니다.</div><!-- 주소 없을 경우에만 -->
+<?	}
+}
+?>
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/popbottom.html";
+?>

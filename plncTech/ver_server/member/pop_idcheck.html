@@ -1,0 +1,55 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+$id = $_REQUEST['id'];
+if( empty($id) ) LoginRedirect();
+
+	$poptitle = '아이디 중복 확인';
+	$poptit = 'idch';
+	
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/poptop.html";
+
+$sql = "SELECT COUNT(*) FROM member WHERE id='".$id."'";
+$chk_id = $objdb->sqlRowOne( $sql );
+?>
+
+<SCRIPT LANGUAGE='JavaScript'>
+function id_chk_ok() {
+	opener.join02_form.id.value = document.id_ck.id.value;
+	opener.join02_form.id1.value = document.id_ck.id.value;
+	opener.join02_form.pass1.focus();
+	self.close();
+}
+function id_chk_bak() {
+	opener.join02_form.id.value='';
+	opener.join02_form.id.focus();
+	self.close();
+}
+</SCRIPT>
+
+<? if ( $chk_id ) { ?>
+
+<!-- 사용시 -->
+<div class="icotx">
+<font class="b fc01"><?= $id ?></font>는 이미 사용중인 아이디 입니다.<BR>
+다른 아이디를 입력해 주세요.
+<a href='javascript:id_chk_bak();'><img src="/img/common/popbtn_ok.gif" align="absmiddle" hspace="3"></a>
+</div>
+<!-- //사용시 -->
+
+<?} else {?>
+
+<!-- 미사용시 -->
+<form name="id_ck">
+<div class="icotx">
+<font class="b fc01"><?= $id?></font>는 사용 가능한 아이디 입니다.<BR>
+해당아이디를 사용하시려면 "<B>확인</B>" 버튼을 클릭해 주세요.
+<a href='javascript:id_chk_ok();'><img src="/img/common/popbtn_ok.gif" align="absmiddle" hspace="3"></a>
+<input type="hidden" name="id" value="<?=$id?>">
+</div>
+</form>
+<!-- //미사용시 -->
+
+<?
+}
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/popbottom.html";
+?>

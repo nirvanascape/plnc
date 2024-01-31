@@ -1,0 +1,268 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	if( empty($_USERID) ) LoginRedirect('member');
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '6';
+	
+$sql = "SELECT * FROM member_join";
+$row = $objdb->sqlRow($sql);
+
+if ( $_REQUEST[mode] == 'reload') {
+
+	$chk_pwd = substr(md5($_REQUEST[pass1]),0,20);
+	$sql = "SELECT pass FROM member WHERE pass = '".$chk_pwd."'";
+	$chk_pass = $objdb -> sqlRowOne($sql);
+
+	if (!$chk_pass){
+		echo "<script>
+		alert(\"비밀번호가 일치하지 않습니다.\");
+		history.back();
+		</script>";
+		exit;
+	}else{
+		$new_pass = (trim($_REQUEST[newPass1]));
+		if($new_pass){
+			$pass = substr(md5($_REQUEST[newPass1]),0,20);
+		}else{
+			$pass = $chk_pass;
+		}
+	}
+	
+	$phone1 = $_REQUEST['phone1'];
+	$phone2 = $_REQUEST['phone2'];
+	$phone3 = $_REQUEST['phone3'];
+	$hp1 = $_REQUEST['hp1'];
+	$hp2 = $_REQUEST['hp2'];
+	$hp3 = $_REQUEST['hp3'];
+	$zip1 = $_REQUEST['zip1']; 
+	$zip2 = $_REQUEST['zip2']; 
+	$addr1 = $_REQUEST['addr1'];
+	$addr2 = $_REQUEST['addr2'];
+	$email = $_REQUEST['email'];
+	$letter = $_REQUEST['letter'];
+	
+	if ( trim($phone1) != '' )	$phone = $phone1.'-'.$phone2.'-'.$phone3;
+	if ( trim($hp1) != '' )		$hp = $hp1.'-'.$hp2.'-'.$hp3;
+	if ( trim($zip1) != '' )	$zip = $zip1.'-'.$zip2;
+
+	$sql = "UPDATE member SET pass = '".$pass."', phone = '".$phone."',".
+	" hp = '".$hp."', addr1 = '".$addr1."', addr2 = '".$addr2."',".
+	" email = '".$email."', zip = '".$zip."', letter='".$letter."' where id = '".$_USERID."'";
+	$objdb -> sqlExe($sql);
+	$objfunc->reloadParent();
+}
+?>
+<script src="/javascript/func.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"회원정보 수정"
+								);
+</SCRIPT>
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html"; ?>
+<SCRIPT>
+function isFilled( elm ) { 
+    if ( elm.value == "" || elm.value == null ) 
+        return false; 
+        else 
+        return true;
+}
+function chk_form( form ) {
+	if ( isFilled(form.pass1) == false ) {
+		alert('현재 비밀번호를 입력하세요.');
+		form.pass1.focus();
+		return false;
+	}
+<? if( $row[phone_use] == 'y' ) { ?>
+	if ( isFilled(form.phone1) == false ) {
+		alert('전화번호를 입력하세요.');
+		form.phone1.focus();
+		return false;
+	}
+	if ( isFilled(form.phone2) == false ) {
+		alert('전화번호를 입력하세요.');
+		form.phone2.focus();
+		return false;
+	}
+	if ( isFilled(form.phone3) == false ) {
+		alert('전화번호를 입력하세요.');
+		form.phone3.focus();
+		return false;
+	}
+<? } ?>
+<? if( $row[hp_use] == 'y' ) { ?>
+	if ( isFilled(form.hp1) == false ) {
+		alert('휴대폰 번호를 입력하세요.');
+		form.hp1.focus();
+		return false;
+	}
+	if ( isFilled(form.hp2) == false ) {
+		alert('휴대폰 번호를 입력하세요.');
+		form.hp2.focus();
+		return false;
+	}
+	if ( isFilled(form.hp3) == false ) {
+		alert('휴대폰 번호를 입력하세요.');
+		form.hp3.focus();
+		return false;
+	}
+<? } ?>
+<? if( $row[addr_use] == 'y') { ?>
+	if ( isFilled(form.addr1) == false ) {
+		alert('우편번호를 검색하세요.');
+		return false;
+	}
+	if ( isFilled(form.addr2) == false ) {
+		alert('나머지 주소를 입력하세요');
+		form.addr2.focus();
+		return false;
+	}
+<? } ?>
+	if ( isFilled(form.email) == false ) {
+		alert('이메일을 입력하세요.');
+		form.email.focus();
+		return false;
+	}
+	var email = form.email.value;
+	if(email.length>0) {
+		if( ( email.indexOf(".")<0 ) || ( email.indexOf("@")<0) ) {
+			alert("잘못된 메일주소입니다.");
+			form.email.value="";
+			form.email.focus();
+			return false;
+		}
+	}
+}
+
+function checkPwd(){
+	if ( document.modi_form.newPass1.value != document.modi_form.newPass2.value ) {
+		alert("비밀번호가 일치하지 않습니다.");
+		document.modi_form.newPass1.value="";
+		document.modi_form.newPass2.value="";
+		document.modi_form.newPass1.focus();
+		return(false);
+	}
+}
+
+function pass_check(){
+	var form = document.modi_form;
+	var newPass = form.newPass1.value;
+	if ( isFilled(form.newPass1) == false ){
+		return false;
+	}
+	var f = document.forms["modi_form"];
+		if ( !form_length_chk( f, "newPass1", "비밀번호를 형식에 맞게 입력하세요.", 4, 16 ) ){
+			form.newPass1.value="";
+			form.newPass1.focus();
+			return;
+		}
+		if ( !form_regexp_chk( f, "newPass1", "비밀번호를 형식에 맞게 입력하세요.", "^[a-z0-9]*$" ) ){
+			form.newPass1.value="";
+			form.newPass1.focus();
+			return;
+		}else{ form.newPass2.focus();
+		}
+	}	
+</SCRIPT>
+<?
+$sql = "SELECT * FROM member WHERE id='".$_USERID."'";
+$row = $objdb->sqlRow( $sql );
+$jumin1 = substr( $row[jumin],0,6 );
+$arr_phone = explode('-',$row[phone]);
+$phone1 = $arr_phone[0];
+$phone2 = $arr_phone[1];
+$phone3 = $arr_phone[2];
+$arr_hp = explode('-',$row[hp]);
+$hp1 = $arr_hp[0];
+$hp2 = $arr_hp[1];
+$hp3 = $arr_hp[2];
+$arr_zip = explode('-',$row[zip]);
+$zip1 = $arr_zip[0];
+$zip2 = $arr_zip[1];
+?>
+<!-- CONTENTS -->
+
+<div id="sTit"><img src="/img/common/tit/st_join_info.gif"></div>
+
+<TABLE border="0" cellpadding="0" cellspacing="0" id="tblW" class="tbl">
+<colgroup><col width="22%"><col width="78%"></colgroup>
+<form name='modi_form' method='post' target='exeFrame' action='<?= $_SERVER["PHP_SELF"]?>' onSubmit="return chk_form(this);">
+<TR>
+	<TH>아이디</TH>
+	<TD><font class="b fc01 sp0"><?= $row[id] ?></font></TD>
+</TR>
+<TR>
+	<TH>현재 비밀번호</TH>
+	<TD><INPUT TYPE="password" NAME="pass1" class="formbox"></TD>
+</TR>
+<TR>
+	<TH>새 비밀번호</TH>
+	<TD><INPUT TYPE="password" NAME="newPass1" class="formbox" onblur='pass_check();'> ( 비밀번호는 4~12자 사이의 영문/숫자만 가능합니다. )</TD>
+</TR>
+<TR>
+	<TH>새 비밀번호 확인</TH>
+	<TD><INPUT TYPE="password" NAME="newPass2" class="formbox" onblur='checkPwd();'></TD>
+</TR>
+<TR>
+	<TH>이름</TH>
+	<TD><font class="dgray sp0"><?= $row[name] ?></font></TD>
+</TR>
+<? if( !empty($row[level]) ) {
+	$sql_level = "SELECT levelname FROM memberlevel WHERE level='".$row[level]."'";
+	$row_level = $objdb->sqlRowOne($sql_level);
+?>
+<TR>
+	<TH>등급</TH>
+	<TD><font class="dgray sp0"><?= $row_level ?></font></TD>
+</TR>
+<? } ?>
+<TR>
+	<TH>주민등록번호</TH>
+	<TD><font class="dgray sp0">
+	<? if ($jumin1 == '') {?>
+		&nbsp;
+	<? } else { ?>
+		<?= $jumin1 ?> - *******
+	<? } ?>
+	</font>
+	</TD>
+</TR>
+<TR>
+	<TH>전화번호</TH>
+	<TD><INPUT TYPE="text" NAME="phone1" class="formbox" style="width:30px" value='<?= $phone1 ?>' onKeyDown="onlyNumber();" maxlength="3"> - <INPUT TYPE="text" NAME="phone2" class="formbox" style="width:60px" value='<?= $phone2 ?>' onKeyDown="onlyNumber();" maxlength="4"> - <INPUT TYPE="text" NAME="phone3" class="formbox" style="width:60px" value='<?= $phone3 ?>' onKeyDown="onlyNumber();" maxlength="4"></TD>
+</TR>
+<TR>
+	<TH>휴대폰 번호</TH>
+	<TD><INPUT TYPE="text" NAME="hp1" class="formbox" style="width:30px" value='<?= $hp1 ?>' onKeyDown="onlyNumber();" maxlength="3"> - <INPUT TYPE="text" NAME="hp2" class="formbox" style="width:60px" value='<?= $hp2 ?>' onKeyDown="onlyNumber();" maxlength="4"> - <INPUT TYPE="text" NAME="hp3" class="formbox" style="width:60px" value='<?= $hp3 ?>' onKeyDown="onlyNumber();" maxlength="4"></TD>
+</TR>
+<TR>
+	<TH>주소</TH>
+	<TD>
+		<INPUT TYPE="text" NAME="zip1" class="formbox" style="width:30px" value='<?= $zip1 ?>' readonly> - <INPUT TYPE="text" NAME="zip2" class="formbox" style="width:30px" value='<?= $zip2 ?>' readonly><a href="javascript:zipWin('modi_form','zip1','zip2','addr1','addr2');">
+		<img src="/img/common/sbtn_zip.gif" align="absmiddle" hspace="3" class="hand">
+		</a>
+		<INPUT TYPE="text" NAME="addr1" class="formbox w100" value='<?= $row[addr1] ?>' readonly>
+		<INPUT TYPE="text" NAME="addr2" class="formbox w100" value='<?= $row[addr2] ?>'>
+	</TD>
+</TR>
+<TR>
+	<TH>이메일</TH>
+	<TD><INPUT TYPE="text" NAME="email" class="formbox w100" value='<?= $row[email] ?>'></TD>
+</TR>
+<TR>
+	<TH class="noline">뉴스레터 수신여부</TH>
+	<TD class="noline"><INPUT TYPE="radio" NAME="letter" value='y' <?= $row[letter]=='y'?'checked':''?>><font class="dgray">수신합니다.</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="radio" NAME="letter" value='n' <?= $row[letter]=='n'?'checked':'' ?>>수신하지 않습니다.</TD>
+</TR>
+</TABLE>
+
+<!-- btn -->
+<div id="btnPad"><input type='image' src="/img/common/btn_ok.gif" hspace="2"><A HREF="javascript:history.back();"><img src="/img/common/btn_cancel.gif" hspace="2"></A></div>
+<input type='hidden' name='mode' value='reload'>
+</form>
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

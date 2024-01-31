@@ -1,0 +1,270 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	if( $_USERID ) $objfunc->goUrl( "/" );
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '1';
+	
+	$sql = "SELECT * FROM member_join";
+	$row = $objdb->sqlRow($sql);
+?>
+<script src="/javascript/func.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+		"멤버쉽",
+		"회원가입"
+	);
+</SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript">
+a = Array(6);
+b = Array(7);
+
+function isFilled( elm ) {
+    if ( elm.value == "" || elm.value == null )
+        return false;
+        else
+        return true;
+}
+function join02( form ) {
+	if ( isFilled(form.id) == false ) {
+			alert('아이디를 입력하세요.');
+			form.id.focus();
+		return false;
+	}
+	if ( document.join02_form.id.value != document.join02_form.id1.value ) {
+			alert('아이디 중복확인이 필요합니다.')
+//			document.join02_form.id.value="";
+//			document.join02_form.id1.value="";
+			document.join02_form.id.focus();
+			return (false);
+	}
+	if ( isFilled(form.pass1) == false ) {
+			alert('비밀번호를 입력하세요.');
+			form.pass1.focus();
+		return false;
+	}
+	if ( isFilled(form.pass2) == false ) {
+			alert('비밀번호 확인을 입력하세요.');
+			form.pass2.focus();
+		return false;
+	}
+	if ( isFilled(form.name) == false ) {
+			alert('이름을 입력하세요.');
+			form.name.focus();
+		return false;
+	}
+<? if( $row[jumin_use] == 'y' ) { ?>
+	var num1, num2, total, tot;
+
+	if(join02_form.jumin1.value.length == 6 && join02_form.jumin2.value.length == 7) {
+		num1 = join02_form.jumin1.value;
+		num2 = join02_form.jumin2.value;
+		for(var i=0; i<6; i++){
+			a[i]=parseInt(num1.charAt(i));
+		}
+		for(var j=0; j<7; j++){
+			b[j]=parseInt(num2.charAt(j));
+		}
+		total = (a[0]*2)+(a[1]*3)+(a[2]*4)+(a[3]*5)+(a[4]*6)+(a[5]*7) + (b[0]*8)+(b[1]*9)+(b[2]*2)+(b[3]*3)+(b[4]*4)+(b[5]*5);
+		tot = 11-(total%11);
+		if(tot == 11){
+			tot = 1;
+		}
+		else if(tot == 10){
+			tot = 0;
+		}
+		if(b[6] != tot){
+			alert("주민번호가 틀립니다.");
+			join02_form.jumin1.value="";
+			join02_form.jumin2.value="";
+			join02_form.jumin1.focus();
+			return (false);
+		}
+	}else{
+		alert("주민번호를 제대로 입력해 주세요.");
+		document.join02_form.jumin1.value="";
+		document.join02_form.jumin2.value="";
+		document.join02_form.jumin1.focus();
+		return (false);
+	}
+
+	if ( isFilled(form.jumin1) == false ) {
+		alert('주민등록번호를 입력하세요.');
+		form.jumin1.focus();
+		return false;
+	}
+	if ( isFilled(form.jumin2) == false ) {
+		alert('주민등록번호를 입력하세요.');
+		form.jumin2.focus();
+		return false;
+	}
+<? } ?>
+<? if( $row[phone_use] == 'y' ) { ?>
+	if ( isFilled(form.phone1) == false ) {
+			alert('전화번호를 입력하세요.');
+			form.phone1.focus();
+		return false;
+	}
+	if ( isFilled(form.phone2) == false ) {
+			alert('전화번호를 입력하세요.');
+			form.phone2.focus();
+		return false;
+	}
+	if ( isFilled(form.phone3) == false ) {
+			alert('전화번호를 입력하세요.');
+			form.phone3.focus();
+		return false;
+	}
+<? } ?>
+<? if( $row[hp_use] == 'y' ) { ?>
+	if ( isFilled(form.hp1) == false ) {
+			alert('휴대폰 번호를 입력하세요.');
+			form.hp1.focus();
+		return false;
+	}
+	if ( isFilled(form.hp2) == false ) {
+			alert('휴대폰 번호를 입력하세요.');
+			form.hp2.focus();
+		return false;
+	}
+	if ( isFilled(form.hp3) == false ) {
+			alert('휴대폰 번호를 입력하세요.');
+			form.hp3.focus();
+		return false;
+	}
+<? } ?>
+<? if( $row[addr_use] == 'y') { ?>
+	if ( isFilled(form.addr1) == false ) {
+			alert('우편번호를 검색하세요.');
+		return false;
+	}
+	if ( isFilled(form.addr2) == false ) {
+			alert('나머지 주소를 입력하세요');
+			form.addr2.focus();
+		return false;
+	}
+<? } ?>
+	if ( isFilled(form.email) == false ) {
+			alert('이메일을 입력하세요.');
+			form.email.focus();
+		return false;
+
+	}
+	var email = form.email.value;
+	if(email.length>0) {
+		if( ( email.indexOf(".")<0 ) || ( email.indexOf("@")<0) ) {
+			alert("잘못된 메일주소입니다.");
+			form.email.value="";
+			form.email.focus();
+			return false;
+		}
+	}
+	if ( !form_length_chk( form , "pass1", "비밀번호를 형식에 맞게 입력하세요.", 4, 16 ) ){
+		form.pass1.value="";
+		form.pass1.focus();
+		return false;
+	}
+	if ( !form_regexp_chk( form, "pass1", "비밀번호를 형식에 맞게 입력하세요.", "^[a-z0-9]*$" ) ){
+		form.pass1.value="";
+		form.pass1.focus();
+		return false;
+	}else{
+		form.pass2.focus();
+	}
+	if ( document.join02_form.pass1.value != document.join02_form.pass2.value ) {
+		alert("비밀번호가 일치하지 않습니다.");
+		document.join02_form.pass1.value="";
+		document.join02_form.pass2.value="";
+		document.join02_form.pass1.focus();
+		return(false);
+	}
+
+}
+
+function popChkId() {
+	var form = document.join02_form;
+	var id = form.id.value;
+		if ( id == "" || id == null){
+			alert('아이디를 입력하세요.');
+			form.id.focus();
+			return false;
+		}
+	var f = document.forms["join02_form"];
+		if ( !form_length_chk( f, "id", "아이디를 형식에 맞게 입력하세요.", 4, 16 ) ) return;
+		if ( !form_regexp_chk( f, "id", "아이디를 형식에 맞게 입력하세요.", "^[a-z0-9]*$" ) ) return;
+	window.open('/member/pop_idcheck.html?id='+id,'','width=480 ,height=170, top=200, left=200, scrollbars=no')
+}
+
+
+</SCRIPT>
+
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html"; ?>
+
+<!-- CONTENTS -->
+<? include $_SERVER["DOCUMENT_ROOT"]."/member/join_step.inc.html"; ?>
+
+<div id="sTit"><img src="/img/common/tit/st_join_info.gif"></div>
+
+<TABLE border="0" cellpadding="0" cellspacing="0" id="tblW" class="tbl">
+<colgroup><col width="22%"><col width="78%"></colgroup>
+<form name='join02_form' method='POST' action='/member/joinExe.html' onSubmit='return join02(this)'>
+<TR>
+	<TH>아이디</TH>
+	<TD><INPUT TYPE="text" NAME="id" class="formbox" maxlength='12'><img src="/img/common/sbtn_idch.gif" align="absmiddle" hspace="3" class="hand"  onClick="popChkId()"> ( 아이디는 4~12자 사이의 영문/숫자만 가능합니다. )</TD>
+	<INPUT TYPE="hidden" NAME="id1" value="">
+</TR>
+<TR>
+	<TH>비밀번호</TH>
+	<TD><INPUT TYPE="password" NAME="pass1" class="formbox" maxlength='12'> ( 비밀번호는 4~12자 사이의 영문/숫자만 가능합니다. )</TD>
+</TR>
+<TR>
+	<TH>비밀번호 확인</TH>
+	<TD><INPUT TYPE="password" NAME="pass2" class="formbox" maxlength='12'></TD>
+</TR>
+<TR>
+	<TH>이름</TH>
+	<TD><INPUT TYPE="text" NAME="name" class="formbox"></TD>
+</TR>
+<TR>
+	<TH>주민등록번호</TH>
+	<TD><INPUT TYPE="text" NAME="jumin1" class="formbox" style="width:60px" maxlength='6' onKeyUp="moveNext( document.join02_form.jumin2, 6 );" onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"> - <INPUT TYPE="password" NAME="jumin2" class="formbox" style="width:60px" maxlength='7' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"></TD>
+</TR>
+<TR>
+	<TH>전화번호</TH>
+	<TD><INPUT TYPE="text" NAME="phone1" class="formbox" style="width:30px" maxlength='3' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"> - <INPUT TYPE="text" NAME="phone2" class="formbox" style="width:60px" maxlength='4' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"> - <INPUT TYPE="text" NAME="phone3" class="formbox" style="width:60px" maxlength='4' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"></TD>
+</TR>
+<TR>
+	<TH>휴대폰 번호</TH>
+	<TD><INPUT TYPE="text" NAME="hp1" class="formbox" style="width:30px" maxlength='3' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"> - <INPUT TYPE="text" NAME="hp2" class="formbox" style="width:60px" maxlength='4' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"> - <INPUT TYPE="text" NAME="hp3" class="formbox" style="width:60px" maxlength='4' onKeyDown="onlyNumber();" style="IME-MODE:DISABLED"></TD>
+</TR>
+<TR>
+	<TH>주소</TH>
+	<TD>
+		<INPUT TYPE="text" NAME="zip1" class="formbox" style="width:30px" readonly> - <INPUT TYPE="text" NAME="zip2" class="formbox" style="width:30px" readonly>
+		<a href="javascript:zipWin('join02_form','zip1','zip2','addr1','addr2');">
+		<img src="/img/common/sbtn_zip.gif" align="absmiddle" hspace="3" class="hand">
+		</a>
+		<INPUT TYPE="text" NAME="addr1" class="formbox w100" readonly>
+		<INPUT TYPE="text" NAME="addr2" class="formbox w100">
+	</TD>
+</TR>
+<TR>
+	<TH>이메일</TH>
+	<TD><INPUT TYPE="text" NAME="email" class="formbox w100"></TD>
+</TR>
+<TR>
+	<TH class="noline">뉴스레터 수신여부</TH>
+	<TD class="noline"><INPUT TYPE="radio" NAME="letter" value='y' checked><font class="dgray">수신합니다.</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="radio" NAME="letter" value='n'>수신하지 않습니다.</TD>
+</TR>
+</TABLE>
+
+<!-- btn -->
+<div id="btnPad"><input type='image' src="/img/common/btn_ok.gif" hspace="2"><A HREF="javascript:history.back();"><img src="/img/common/btn_cancel.gif" hspace="2"></A></div>
+</form>
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

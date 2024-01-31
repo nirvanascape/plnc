@@ -1,0 +1,61 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+if( empty($_REQUEST['id']) ) LoginRedirect();
+$id = $_REQUEST['id'];
+$pass1 = $_REQUEST['pass1'];
+$name = $_REQUEST['name'];
+$jumin1 = $_REQUEST['jumin1'];
+$jumin2 = $_REQUEST['jumin2'];
+$phone1 = $_REQUEST['phone1'];
+$phone2 = $_REQUEST['phone2'];
+$phone3 = $_REQUEST['phone3'];
+$hp1 = $_REQUEST['hp1'];
+$hp2 = $_REQUEST['hp2'];
+$hp3 = $_REQUEST['hp3'];
+$zip1 = $_REQUEST['zip1']; 
+$zip2 = $_REQUEST['zip2']; 
+$addr1 = $_REQUEST['addr1'];
+$addr2 = $_REQUEST['addr2'];
+$email = $_REQUEST['email'];
+$letter = $_REQUEST['letter'];
+
+$query = "SELECT level FROM memberlevel WHERE basic='y'";
+$level = $objdb->sqlRowOne( $query );
+if ( !$level )	$level='' ;
+
+$sql_use = "SELECT juminuse FROM member_use";
+$row_use = $objdb->sqlRowOne( $sql_use );
+
+if( $row_use == 'n' ){
+	$sql = "SELECT jumin FROM member WHERE jumin LIKE '%".$jumin2."'";
+	$chk_jumin = $objdb -> sqlRowOne($sql);
+}
+if ($chk_jumin){
+	$objfunc->goUrl('/member/join02.html','이미 가입된 주민번호 입니다.');
+}else{
+
+	if ( trim($jumin1) != '' )	$jumin = $jumin1.'-'.$jumin2 ;
+	if ( trim($phone1) != '' )	$phone = $phone1.'-'.$phone2.'-'.$phone3;
+	if ( trim($hp1) != '' )		$hp = $hp1.'-'.$hp2.'-'.$hp3;
+	if ( trim($zip1) != '' )	$zip = $zip1.'-'.$zip2;
+	$pass = substr(md5($pass1),0,20);
+
+	$sql = "INSERT INTO member(".
+	"id, pass,name,jumin,phone,hp,addr1,addr2,email,level,zip,wdate,letter".
+	")VALUES(".
+	"'".$id."','".$pass."','".$name."','".$jumin."',".
+	"'".$phone."','".$hp."',".
+	"'".$addr1."','".$addr2."','".$email."','".$level."',".
+	"'".$zip."',sysdate(),'".$letter."'".
+	")";
+	$objdb -> sqlExe($sql);
+}
+?>
+<form name='form' method='post' action='/member/join03.html'>
+	<input type='hidden' name='username' value='<?= $name ?>'>
+	<input type='hidden' name='useremail' value='<?= $email ?>'>
+	<input type='hidden' name='userid' value='<?= $id?>'>
+</form>
+<SCRIPT>
+	document.form.submit();
+</SCRIPT>

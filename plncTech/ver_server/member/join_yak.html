@@ -1,0 +1,38 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+
+	$mname = 'member';
+	$subnum = '4';
+
+?>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"이용약관"
+								);
+</SCRIPT>
+
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html";
+	$sql_yak = "SELECT * FROM member_join";
+	$row_yak = $objdb->sqlRow( $sql_yak );
+?>
+
+<!-- CONTENTS -->
+
+<!-- 약관 -->
+<div id="sTit"><img src="/img/common/tit/st_join_yak.gif"></div>
+
+
+<div id="joinBox2">
+<pre><?= $row_yak[yak1]?></pre>
+</div>
+
+<!-- //약관 -->
+
+
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>

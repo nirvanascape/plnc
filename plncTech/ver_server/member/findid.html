@@ -1,0 +1,211 @@
+<?
+	include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+	if( $_USERID ) $objfunc->goUrl( "/" );
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/top.html";
+	$mname = 'member';
+	$subnum = '3';
+
+?>
+<SCRIPT LANGUAGE="JavaScript">
+	var arr_navi	= new Array(
+												"멤버쉽",
+												"아이디/비밀번호 찾기"
+								);
+
+function passChk(form){
+	if(pass_sear_form.id.value == "" || pass_sear_form.id.value == null){
+		alert('아이디를 입력하세요.');
+		pass_sear_form.id.focus();
+		return false;
+	}
+	if(pass_sear_form.name.value == "" || pass_sear_form.name.value == null){
+		alert('이름을 입력하세요.');
+		pass_sear_form.name.focus();
+		return false;
+	}
+	if(pass_sear_form.email.value == "" || pass_sear_form.email.value == null){
+		alert('이메일을 입력하세요.');
+		pass_sear_form.email.focus();
+		return false;
+	}
+}
+
+function idChk(form) {
+	if(id_sear_form.name.value == "" || id_sear_form.name.value == null){
+		alert('이름을 입력하세요.');
+		id_sear_form.name.focus();
+		return false;
+	}
+	if(id_sear_form.jumin1.value == "" || id_sear_form.jumin1.value == null){
+		alert('주민번호를 입력하세요.');
+		id_sear_form.jumin1.focus();
+		return false;
+	}
+	if(id_sear_form.jumin2.value == "" || id_sear_form.jumin2.value == null){
+		alert('주민번호를 입력하세요.');
+		id_sear_form.jumin2.focus();
+		return false;
+	}
+}
+
+function moveNext( obj, num ) {
+	val = event.srcElement.value;
+	if( val.length == num ) obj.focus();
+}
+</SCRIPT>
+
+<? include $_SERVER["DOCUMENT_ROOT"]."/inc/subtop.html"; ?>
+<?
+	if( $_REQUEST[mode] == 'findid' ) {
+	$name = $_REQUEST[name];
+	$jumin1 = $_REQUEST[jumin1];
+	$jumin2 = $_REQUEST[jumin2];
+	$form_jumin = $jumin1."-".$jumin2;
+
+	$sql_name = "SELECT id FROM member WHERE name = '".$name."' and jumin='".$form_jumin."' " ;
+	$chk_id = $objdb -> sqlRowOne($sql_name);
+
+		if( !$chk_id ) {
+			$mode = '';
+			$objfunc->reloadParent('해당정보 아이디가 없습니다.');
+		} else {
+		?>
+			<script>
+				window.open( '/member/pop_idsearch.html?id=<?= $chk_id ?>', '','width=400 ,height=150, top=200, left=200, scrollbars=no');
+			</script>
+		<?
+			$objfunc->reloadParent();
+		}
+	}
+	
+	if( $_REQUEST[mode] == 'findpass' ) {
+	$name = $_REQUEST[name];
+	$id = $_REQUEST[id];
+	$email = $_REQUEST[email];
+
+	$sql_all = "SELECT * FROM member WHERE name = '".$name."' AND id = '".$id."' AND email = '".$email."'";
+	$row = $objdb -> sqlRow($sql_all);
+	$memberChk = $row[id];
+		
+		if( !$memberChk ){
+			$objfunc->reloadParent('해당정보가 일치하지 않습니다.');
+		} else {
+			$rand = mt_rand(0x000000, 0xffffff);
+			$rand = dechex($rand & 0xffffff);
+			$rand = str_pad($rand, 6, '0', STR_PAD_LEFT);
+			$dbpass = substr(md5($rand),0,20);
+
+			$id = $row[id];
+			
+			$sql_up = "UPDATE member SET pass = '".$dbpass."' where id ='".$id."'";
+			$objdb -> sqlExe($sql_up);
+			
+			$sql_admin = "SELECT email, company FROM authorised_user";
+			$admin_row = $objdb -> sqlRow($sql_admin);
+			$company = $admin_row[company];
+
+			$mail_title = "[".$company."] 임시 비번번호를 알려드립니다.";
+			$from_email = $admin_row[email];
+
+			$header =    "Return-Path: ".$from_email."\n";
+			$header .=    "From:  \"".$from_email."\"<".$from_email.">\n";
+			$header .=    "X-Mailer: DEARBIZ\n";
+			$header .=    "Reply-To: ".$from_email."\n";
+			$header .=    "Content-Type: text/html; charset=euc-kr\n";
+			$to_email = $email;
+				include $_SERVER['DOCUMENT_ROOT'].'/mail/pw.html';
+			mail($to_email, $mail_title, $contents, $header);
+			?>
+			<script>
+				window.open('/member/pop_pwsearch.html?id=<?= $id ?>','','width=500 ,height=180, top=200, left=200, scrollbars=no');
+			</script>
+			<?
+			$objfunc->reloadParent();
+		}
+	}
+
+	
+?>
+<!-- CONTENTS -->
+
+
+<TABLE border="0" cellpadding="0" cellspacing="0" id="Find">
+<TR>
+	<TD class="idtd">
+		<!-- 아이디찾기 -->
+		<div id="sTit"><img src="/img/common/tit/st_find_id.gif"></div>
+		<TABLE border="0" cellpadding="0" cellspacing="0" id="Findtbl">
+		<TR>
+			<TD class="left"></TD>
+			<TD class="right">
+				
+				<form method='post' target='exeFrame' name='id_sear_form' onSubmit='return idChk(this)'>
+				<input type='hidden' name='mode' value='findid'>
+					<!-- login -->
+					<div class="tx"><img src="/img/member/find_id_tx.gif"></div>
+					<TABLE border=0 cellpadding=0 cellspacing=4>
+					<TR>
+						<TD><img src="/img/member/log_name.gif" hspace="8"></TD>
+						<TD><INPUT TYPE="text" NAME="name" class="box" tabindex="1"></TD>
+					</TR>
+					<TR>
+						<TD><img src="/img/member/log_num.gif" hspace="8"></TD>
+						<TD><INPUT TYPE="text" NAME="jumin1" maxlength='6' class="box2" tabindex="2" onKeyUp="moveNext(this.form.elements['jumin2'],6);"> - <INPUT TYPE="password" NAME="jumin2" maxlength='7' class="box2" tabindex="2"></TD>
+					</TR>
+					</TABLE>
+					<div class="btn"><input type="image" src="/img/common/btn_log_find.gif" tabindex="4"></div>
+					<!-- //login -->
+				</form>
+
+			</TD>
+		</TR>
+		</TABLE>
+		<!-- //아이디찾기 -->
+	</TD>
+	<TD>
+		<!-- 비번찾기 -->
+		<div id="sTit"><img src="/img/common/tit/st_find_pw.gif"></div>
+		<TABLE border="0" cellpadding="0" cellspacing="0" id="Findtbl">
+		<TR>
+			<TD class="left"></TD>
+			<TD class="right2">
+			
+				<form method='post' target='exeFrame' name='pass_sear_form' onSubmit='return passChk(this)'>
+				<input type='hidden' name='mode' value='findpass'>
+					<!-- login -->
+					<div class="tx"><img src="/img/member/find_pw_tx.gif"></div>
+					<TABLE border=0 cellpadding=0 cellspacing=4>
+					<TR>
+						<TD width="74"><img src="/img/member/log_id.gif" hspace="8"></TD>
+						<TD><INPUT TYPE="text" NAME="id" class="box" tabindex="11"></TD>
+						<TD></TD>
+					</TR>
+					<TR>
+						<TD><img src="/img/member/log_name.gif" hspace="8"></TD>
+						<TD><INPUT TYPE="text" NAME="name" class="box" tabindex="12"></TD>
+						<TD></TD>
+					</TR>
+					<TR>
+						<TD><img src="/img/member/log_mail.gif" hspace="8"></TD>
+						<TD><INPUT TYPE="text" NAME="email" class="box" tabindex="13"></TD>
+						<TD><input type="image" src="/img/common/btn_log_find.gif" tabindex="14"></TD>
+					</TR>
+					</TABLE>
+					<!-- //login -->			
+				</form>
+			
+			</TD>
+		</TR>
+		</TABLE>
+		<!-- //비번찾기 -->
+	</TD>
+</TR>
+</TABLE>
+
+
+
+<!-- //CONTENTS -->
+<?
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/subbottom.html";
+	include $_SERVER["DOCUMENT_ROOT"]."/inc/bottom.html";
+?>
