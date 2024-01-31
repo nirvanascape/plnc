@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- head 시작 -->
+<? include "../common/sub-head.html"; ?>
+<!-- head 끝 -->
+
+<body>
+
+    <div class="wrap wrap-people">
+
+        <!-- header 시작-->
+        <? include "../common/sub-header.html"; ?>
+        <!-- header 끝 -->
+
+        <section class="sub-header">
+
+            <h2 class="sub-title sub-title4">people</h2>
+            <div class="sub-nav">
+                <div class="sub-select">
+                    <h3 class="sub-select-text">인재상</h3>
+                    <button class="sub-select-btn"></button>
+                </div>
+                <nav class="lnb">
+                    <a href="people.html" class="nav-item" style="color:#000;">인재상</a>
+                    <a href="wanted.html?id=gonggo" class="nav-item">채용공고</a>
+                </nav>
+            </div>
+
+        </section>
+
+        <main class="sub-main people">
+
+            <img src="../../assets/images/people_text.png" alt="The man with passion, leadership and creativity">
+            <dl>
+                <dt class="passion">passion</dt>
+                <dd class="passion">
+                    열정을 가지고 급변하는 비즈니스<br>
+                    환경에 적극적으로 대응하는 인재
+                </dd>
+            </dl>
+            <dl>
+                <dt class="leadership">leadership</dt>
+                <dd class="leadership">
+                    이해와 신뢰를 바탕으로 조직을<br>
+					유연하고 튼튼하게 이끄는 인재
+                </dd>
+            </dl>
+            <dl>
+                <dt class="creativity">creativity</dt>
+                <dd class="creativity">
+                    부단한 자기혁신을 통해 창의적이고<br>
+					도전적인 의식을 겸비한 인재
+                </dd>
+            </dl>
+
+        </main>
+
+        <!-- footer 시작 -->
+        <? include "../common/footer.html"; ?>
+        <!-- footer 끝 -->
+
+    </div>
+
+    <!-- JS -->
+    <script src="../../assets/js/main.js"></script>
+    <script>
+
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: true,
+        });
+
+    </script>
+</body>
+</html>

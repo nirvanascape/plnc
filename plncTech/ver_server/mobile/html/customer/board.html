@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- head 시작 -->
+<?php include $_SERVER['DOCUMENT_ROOT'].'/mobile/html/common/sub-head.html'; ?>
+<!-- head 끝 -->
+
+<body>
+
+    <div class="wrap wrap-board">
+
+        <!-- header 시작-->
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/mobile/html/common/sub-header.html'; ?>
+        <!-- header 끝 -->
+
+        <section class="sub-header">
+
+            <h2 class="sub-title sub-title3">customer</h2>
+            <div class="sub-nav">
+                <div class="sub-select">
+                    <h3 class="sub-select-text">공지사항</h3>
+                    <button class="sub-select-btn"></button>
+                </div>
+                <nav class="lnb">
+                    <a href="notice.html" class="nav-item" style="color:#000;">공지사항</a>
+                    <a href="news.html" class="nav-item">뉴스</a>
+                    <a href="qna.html" class="nav-item">제품문의</a>
+                </nav>
+            </div>
+
+        </section>
+
+        <main class="sub-main board">
+
+            <table class="board-inner-tbl">
+                <caption>게시글 본문 입니다.</caption>
+                <tr>
+                    <td class="title">
+                        <p>2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                        <span class="date">2019.05.28</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="contents">
+                        <img src="../../assets/images/board_map.png" alt="Plnc테크놀로지지도">
+                        <p>
+                            (주)피엘앤씨테크놀로지가 2018년 10월 20일부로
+                            신사옥으로 이전을 완료하였습니다.<br><br>
+
+                            2019년에는 새로운 사옥에서 보다 좋은 서비스로
+                            고객 니즈에 부응하는 (주)피엘앤씨테크놀로지가
+                            되도록 최선을 다하겠습니다.<br><br>
+
+                            감사합니다.<br><br>
+
+                            * 신사옥 주소 : 서울특별시 구로구 디지털로 272
+                            한신IT타워 209호<br><br>
+
+                            * 고객센터 : (대표) 02-2038-2468
+                        </p>
+                        <button type="button" class="list">목록</button>
+                    </td>
+                </tr>
+            </table>
+
+        </main>
+
+        <!-- footer 시작 -->
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/mobile/html/common/footer.html'; ?>
+        <!-- footer 끝 -->
+
+    </div>
+
+    <!-- JS -->
+    <script src="../../assets/js/main.js"></script>
+
+</body>
+</html>

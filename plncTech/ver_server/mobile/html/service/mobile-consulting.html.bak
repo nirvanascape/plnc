@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- head 시작 -->
+<? include "../common/sub-head.html"; ?>
+<!-- head 끝 -->
+
+<body>
+
+    <div class="wrap wrap-mobile-consulting">
+
+        <!-- header 시작-->
+        <? include "../common/sub-header.html"; ?>
+        <!-- header 끝 -->
+
+        <section class="sub-header">
+
+            <h2 class="sub-title sub-title2">service</h2>
+            <div class="sub-nav">
+                <div class="sub-select">
+                    <h3 class="sub-select-text">Mobile consulting</h3>
+                    <button class="sub-select-btn"></button>
+                </div>
+                <nav class="lnb">
+                    <a href="mobile-consulting.html" class="nav-item" style="color:#000;">Mobile consulting</a>
+                    <a href="reference.html" class="nav-item">Reference</a>
+                    <a href="enterprise.html" class="nav-item">Enterprise Solution</a>
+                    <a href="partners.html" class="nav-item">Partners</a>
+                </nav>
+            </div>
+
+        </section>
+
+        <main class="sub-main mobile-consulting">
+
+            <h4>
+                고객 맞춤형<br>
+                스마트폰 커머스 Biz<br>
+                컨설팅 및 개발
+            </h4>
+            <dl>
+                <dt>최고의 스마트폰 기술력 보유</dt>
+                <dd>iPhone, Windows Mobile, Android 기반의 다양한 컨텐츠 개발</dd>
+				<dd>스마트폰 전문 개발 인력 보유</dd>
+				<dd>브랜드 App관련 다양한 경험 보유</dd>
+            </dl>
+            <dl>
+                <dt>커머스 서비스 기획/운영</dt>
+                <dd>에뛰드 하우스 브랜드 App 개발 및 운영</dd>
+				<dd>5대 홈쇼핑 주문 및 이통사 제휴서비스 경험</dd>
+            </dl>
+            <dl>
+                <dt>스마트폰 기반 마케팅 경험</dt>
+                <dd>모바일쿠폰, QR코드 등 다양한 스마트폰 기반 마케팅 툴에 대한 높은 이해</dd>
+				<dd>모바일 멤버쉽 등의 구축 운영 경험</dd>
+            </dl>
+            <dl>
+                <dt>칩(USIM)에 대한 높은 이해</dt>
+                <dd>모네타 칩 및 USIM 기반의 다양한 서비스 모델에 대한 컨설팅</dd>
+				<dd>티머니 칩서비스 관련 높은 기술 이해도</dd>
+            </dl>
+            <dl>
+                <dt>다양한 비즈니스 파트너 보유</dt>
+                    
+                
+                <dd>각 분야의 선두 비즈니스 파트너 보유<br>(5대 홈쇼핑, 에뛰드하우스등)</dd>
+                    <p><br>
+                    </p>
+                    <p>파트너십을 바탕으로 다양한 컨버전스사업 추친 중</p>
+                </dd>
+            </dl>
+
+        </main>
+
+        <!-- footer 시작 -->
+        <? include "../common/footer.html"; ?>
+        <!-- footer 끝 -->
+
+    </div>
+
+    <!-- JS -->
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'].'/common/config.inc.php';
+include $_SERVER["DOCUMENT_ROOT"]."/common/user_func_m.php";
+?>
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- head 시작 -->
+<? include "common/head.html"; ?>
+<!-- head 끝 -->
+
+<body>
+
+    <div class="wrap wrap-index">
+
+        <!-- header 시작-->
+        <? include "common/header.html"; ?>
+        <!-- header 끝 -->
+
+        <main class="main-content">
+
+            <section class="top-banner-area">
+                <div class="background-wrap">
+                    <div class="bg on"></div>
+                    <div class="bg"></div>
+                    <div class="bg"></div>
+                </div>
+                <div class="banner-wrap">
+                    <section class="item item1">
+                        <p>
+                            <img src="../assets/images/text/main-visual1.png" alt="The technology of plnc leading IT" class="txt-con txt1">
+                            <span class="txt-con txt2">
+                                plnc의 기술력은<br>
+                                IT 관련 분야를 선도합니다.
+                            </span>
+                        </P>
+                        <div class="img-con img1"></div>
+                        <div class="img-con img2"></div>
+                    </section>
+                    <section class="item item2">
+                        <p>
+                            <img src="../assets/images/text/main-visual2.png" alt="" class="txt-con txt1">
+                            <span class="txt-con txt2">
+                                열정과 신뢰가 PLNC를 만듭니다.
+                            </span>
+                        </P>
+                        <div class="img-con img1"></div>
+                        <div class="img-con img2"></div>
+                        <div class="img-con img3"></div>
+                    </section>
+                    <section class="item item3">
+                        <p>
+                            <img src="../assets/images/text/main-visual3.png" alt="" class="txt-con txt1">
+                            <span class="txt-con txt2">
+                                사람과 기업을 행복하게 합니다.
+                            </span>
+                        </P>
+                        <div class="img-con img1"></div>
+                        <div class="img-con img2"></div>
+                    </section>
+                </div>
+
+                <div class="control-wrap">
+                    <span class="cur-num">1</span>
+                    <span class="progress-wrap">
+                        <span class="progress-bar"></span>
+                    </span>
+                    <span class="total-num">3</span>
+                    <button class="btn-banner-cont mainBanControl" value="pause">
+                        <span class="blind">play/stop</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="bottom-banner-area">
+                <section class="bottom-link">
+                    <span class="de-img">
+                        <span></span>
+                    </span>
+                    <ol class="link">
+                        <li><a href="service/mobile-consulting.html">MOBILE CONSULTING</a></li>
+                        <li><a href="service/reference.html">REFERENCE</a></li>
+                        <li><a href="service/enterprise.html">ENTERPRISE SOLUTION</a></li>
+                        <li><a href="service/partners.html">PARTNERS</a></li>
+                    </ol>
+                </section>
+                <section class="bottom-visual">
+                    <figure class="picture-img">
+                        <img src="../assets/images/b_visual_img.png" alt="도심속 빌딩 흑백 사진">
+                    </figure>
+                    <span class="text-img-rolling">
+                        <span class="text-img"></span>
+                    </span>
+                </section>
+                <section class="bottom-list">
+                    <ul>
+                        <?
+        				$mybbs1 = user_board( 'notice', '4', '45', 'sortno','1', 'help');
+        				?>
+                        <li>
+                            <strong class="category">NOTICE</strong>
+                            <a href="" class="title"><? echo $mybbs1[title][1]; ?></a>
+                        </li>
+                        <?
+                        $mybbs1 = user_board( 'news', '4', '45', 'sortno','1', 'help');
+                        ?>
+                        <li>
+                            <strong class="category">NEWS</strong>
+                            <a href="" class="title"><? echo $mybbs1[title][1]; ?></a>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+        </main>
+
+        <!-- footer 시작 -->
+        <? include "common/footer.html"; ?>
+        <!-- footer 끝 -->
+
+    </div>
+
+<!-- JS -->
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>
