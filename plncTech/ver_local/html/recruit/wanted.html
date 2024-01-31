@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- head 시작 -->
+<? include "../common/sub-head.html"; ?>
+<!-- head 끝 -->
+
+<body>
+
+    <div class="wrap wrap-wanted">
+
+        <!-- header 시작-->
+        <? include "../common/sub-header.html"; ?>
+        <!-- header 끝 -->
+
+        <section class="sub-header">
+
+            <h2 class="sub-title sub-title4">wanted</h2>
+            <div class="sub-nav">
+                <div class="sub-select">
+                    <h3 class="sub-select-text">채용공고</h3>
+                    <button class="sub-select-btn"></button>
+                </div>
+                <nav class="lnb">
+                    <a href="people.html" class="nav-item">인재상</a>
+                    <a href="wanted.html" class="nav-item" style="color:#000;">채용공고</a>
+                </nav>
+            </div>
+
+        </section>
+
+        <main class="sub-main wanted">
+
+            <form action="">
+                <div class="search-area">
+                    <input type="text" placeholder="Search" title="검색어를 입력하세요">
+                    <button type="button" class="search"></button>
+                </div>
+            </form>
+            <table class="board-tbl">
+                <caption>게시판 리스트 입니다.</caption>
+                <tr>
+                    <td>
+                        <a href="">
+                            <p>2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                            <span class="date">2019.05.28</span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="">
+                            <p>2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                            <span class="date">2019.05.28</span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="">
+                            <p>2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                            <span class="date">2019.05.28</span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="">
+                            <p>2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                            <span class="date">2019.05.28</span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="">
+                            <p>2019년 피엘앤씨테크놀로지 사옥 이전2019년 피엘앤씨테크놀로지 사옥 이전2019년 피엘앤씨테크놀로지 사옥 이전</p>
+                            <span class="date">2019.05.28</span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <div class="board-paging">
+                <button type="button" class="first">
+                    <span class="blind">첫 패이지로</span>
+                </button>
+                <button type="button" class="prev">
+                    <span class="blind">이전 페이지로</span>
+                </button>
+                <ol>
+                    <li><a href="">1</a></li>
+                </ol>
+                <button type="button" class="next">
+                    <span class="blind">다음 페이지로</span>
+                </button>
+                <button type="button" class="last">
+                    <span class="blind">마지막 페이지로</span>
+                </button>
+            </div>
+
+        </main>
+
+        <!-- footer 시작 -->
+        <? include "../common/footer.html"; ?>
+        <!-- footer 끝 -->
+
+    </div>
+
+    <!-- JS -->
+    <script src="../../assets/js/main.js"></script>
+    <script>
+
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: true,
+        });
+
+    </script>
+</body>
+</html>
